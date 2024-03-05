@@ -2,6 +2,8 @@ import Link from 'next/link'
 import SingerCard from '@/components/SingerCard'
 import { getAllSingers } from '@/libs/actions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
     const singers = await getAllSingers();
   
