@@ -22,7 +22,7 @@ function NewSongPage() {
       }
 
       const song = await response.json();
-      setSuccessMessage(`Canción creada exitosamente. ID: ${song.id}`);
+      setSuccessMessage(`Canción creada exitosamente. ID: ${song.id} Ya puede volver a canciones`);
     } catch (error) {
       console.error(error);
       setErrorMessage(error.message);
@@ -32,8 +32,8 @@ function NewSongPage() {
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-semibold my-4">Nueva Canción</h2>
-      {successMessage && <div className="text-green-500">{successMessage}</div>}
-      {errorMessage && <div className="text-red-500">{errorMessage}</div>}
+      {successMessage && <div className="text-green-500 bg-white">{successMessage}</div>}
+      {errorMessage && <div className="text-red-500 bg-white">{errorMessage}</div>}
       <FormSong onSubmit={handleSubmit} />
       <Link href="/songs" className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
         Volver a canciones
