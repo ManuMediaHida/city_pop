@@ -28,7 +28,6 @@ function RegisterPage() {
     });
 
     if (res.ok) {
-      // Redireccionar al login
       signIn('email', { email: data.email, callbackUrl: '/auth/login' });
     }
   });
@@ -38,8 +37,6 @@ function RegisterPage() {
       <div className="bg-neutral-950 text-white p-6 rounded">
         <form onSubmit={onSubmit} className="space-y-4">
           <h1 className="text-xl font-bold mb-4">Registro</h1>
-
-          {/* Form fields and submit button */}
           <div>
             <label htmlFor="username" className="block">Nombre de usuario:</label>
             <input
