@@ -23,7 +23,7 @@ function NewSingerPage() {
       }
 
       const singer = await response.json();
-      setSuccessMessage(`Cantante creado exitosamente. ID: ${singer.id}`);
+      setSuccessMessage(`Cantante creado exitosamente. ID: ${singer.id}, Ya puede volver a cantantes`);
     } catch (error) {
       console.error(error);
       setErrorMessage(error.message);
