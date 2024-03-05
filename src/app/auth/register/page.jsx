@@ -1,8 +1,7 @@
-"use client";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+"use client"
 
+import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 
 function RegisterPage() {
   const {
@@ -10,7 +9,6 @@ function RegisterPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
     if (data.password !== data.confirmPassword) {
@@ -30,121 +28,75 @@ function RegisterPage() {
     });
 
     if (res.ok) {
-      router.push("/auth/login");
+      // Redireccionar al login
+      signIn('email', { email: data.email, callbackUrl: '/auth/login' });
     }
   });
 
-  console.log(errors);
-
   return (
-    <div className="h-[calc(100vh-7rem)] flex justify-center items-center">
-      
-      <div className="w-1/4 bg-neutral-950 text-white p-6 rounded">
+    <div className="flex justify-center items-center h-screen">
+      <div className="bg-neutral-950 text-white p-6 rounded">
+        <form onSubmit={onSubmit} className="space-y-4">
+          <h1 className="text-xl font-bold mb-4">Registro</h1>
 
-      <form onSubmit={onSubmit}>
-        <h1 className="text-slate-200 font-bold text-4xl mb-4">Registro</h1>
+          {/* Form fields and submit button */}
+          <div>
+            <label htmlFor="username" className="block">Nombre de usuario:</label>
+            <input
+              type="text"
+              {...register("username", { required: "El nombre de usuario es requerido" })}
+              className="p-2 rounded bg-slate-900 text-slate-300 w-full"
+              placeholder="TuUsuario123"
+            />
+            {errors.username && <span className="text-xs text-red-500">{errors.username.message}</span>}
+          </div>
 
-        <label htmlFor="username" className="text-slate-500 mb-2 block text-sm">
-          Nombre de usuario:
-        </label>
-        <input
-          type="text"
-          {...register("username", {
-            required: {
-              value: true,
-              message: "El nombre de usuario es requerido",
-            },
-          })}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-          placeholder="TuUsuario123"
-        />
+          <div>
+            <label htmlFor="email" className="block">Email:</label>
+            <input
+              type="email"
+              {...register("email", { required: "El Email es requerido" })}
+              className="p-2 rounded bg-slate-900 text-slate-300 w-full"
+              placeholder="usuario@email.com"
+            />
+            {errors.email && <span className="text-xs text-red-500">{errors.email.message}</span>}
+          </div>
 
-        {errors.username && (
-          <span className="text-red-500 text-xs">
-            {errors.username.message}
-          </span>
-        )}
+          <div>
+            <label htmlFor="password" className="block">Contraseña:</label>
+            <input
+              type="password"
+              {...register("password", { required: "La contraseña es requerida" })}
+              className="p-2 rounded bg-slate-900 text-slate-300 w-full"
+              placeholder="********"
+            />
+            {errors.password && <span className="text-xs text-red-500">{errors.password.message}</span>}
+          </div>
 
-        <label htmlFor="email" className="text-slate-500 mb-2 block text-sm">
-          Email:
-        </label>
-        <input
-          type="email"
-          {...register("email", {
-            required: {
-              value: true,
-              message: "El Email es requerido",
-            },
-          })}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-          placeholder="usuario@email.com"
-        />
-        {errors.email && (
-          <span className="text-red-500 text-xs">{errors.email.message}</span>
-        )}
+          <div>
+            <label htmlFor="confirmPassword" className="block">Confirmar Contraseña:</label>
+            <input
+              type="password"
+              {...register("confirmPassword", { required: "La confirmación de contraseña es requerida" })}
+              className="p-2 rounded bg-slate-900 text-slate-300 w-full"
+              placeholder="********"
+            />
+            {errors.confirmPassword && <span className="text-xs text-red-500">{errors.confirmPassword.message}</span>}
+          </div>
 
-        <label htmlFor="password" className="text-slate-500 mb-2 block text-sm">
-          Contraseña:
-        </label>
-        <input
-          type="password"
-          {...register("password", {
-            required: {
-              value: true,
-              message: "La contraseña es requerida",
-            },
-          })}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-          placeholder="********"
-        />
-        {errors.password && (
-          <span className="text-red-500 text-sm">
-            {errors.password.message}
-          </span>
-        )}
+          <button className="w-full bg-blue-500 p-2 rounded mt-4">
+            Registrar
+          </button>
+        </form>
 
-        <label
-          htmlFor="confirmPassword"
-          className="text-slate-500 mb-2 block text-sm"
-        >
-          Confirmar Contraseña:
-        </label>
-        <input
-          type="password"
-          {...register("confirmPassword", {
-            required: {
-              value: true,
-              message: "La confrimación de contraseña es requerida",
-            },
-          })}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-          placeholder="********"
-        />
-        {errors.confirmPassword && (
-          <span className="text-red-500 text-sm">
-            {errors.confirmPassword.message}
-          </span>
-        )}
-
-        <button className="w-full bg-blue-500 text-white p-3 rounded-lg mt-2">
-          Registrar
-        </button>
-
-      </form>
-
-      
-      <br></br>
-
-      <div className="flex justify-center items-center">
-        <span className="pb-4">O bien</span> 
-      </div>
-
-
-      <button onClick={() => signIn('google', { callbackUrl: '/dashboard' })} className="w-full bg-red-500 text-white p-3 rounded-lg mt-2 flex justify-center items-center">
-        Regístrate con  con Google
-      </button>
+        <div className="text-center mt-4">
+          <button onClick={() => signIn('google', { callbackUrl: '/dashboard' })} className="bg-red-500 p-2 rounded text-white">
+            Regístrate con Google
+          </button>
+        </div>
       </div>
     </div>
   );
 }
+
 export default RegisterPage;
