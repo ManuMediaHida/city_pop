@@ -57,7 +57,7 @@ const EditSongPage = ({params}) =>{
       {successMessage && <p className="text-green-500 bg-white">{successMessage}</p>}
       {errorMessage && <p className="text-red-500 bg-white">{errorMessage}</p>}
       <EditSongForm onSubmit={handleSubmit} initialData={song} singers={singers} />
-      <Link href="/songs">Volver a canciones</Link>
+      <Link href="/songs" className="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">Volver a canciones</Link>
     </div>
   );
 }
