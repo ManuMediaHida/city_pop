@@ -31,7 +31,7 @@ function NewSongPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-semibold my-4">Nueva Canción</h2>
+      <h2 className="text-2xl font-semibold my-4 text-white">Nueva Canción</h2>
       {successMessage && <div className="text-green-500 bg-white">{successMessage}</div>}
       {errorMessage && <div className="text-red-500 bg-white">{errorMessage}</div>}
       <FormSong onSubmit={handleSubmit} />
