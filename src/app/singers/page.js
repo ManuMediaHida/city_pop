@@ -20,6 +20,10 @@ export default async function Home() {
                     </div>
                 ))}
             </div>
+                  
+            <Link href="/dashboard" className="mt-4 inline-block bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md shadow transition duration-300 ease-in-out">
+                <span>Volver al Dashboard</span>
+            </Link>
         </div>
     );
 }
