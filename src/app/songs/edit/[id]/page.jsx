@@ -44,20 +44,20 @@ const EditSongPage = ({params}) =>{
       if (!response.ok) throw new Error(`Error updating song: ${response.statusText}`);
 
       const updatedSong = await response.json();
-      setSuccessMessage(`Song updated successfully. ID: ${updatedSong.id}`);
+      setSuccessMessage(`Cancion actualizada con éxito. ID: ${updatedSong.id} Puede volver a canciones`);
     } catch (error) {
-      console.error('Error updating song:', error);
-      setErrorMessage('Failed to update song');
+      console.error('Error al actualizar canción:', error);
+      setErrorMessage('Fallo al actualizar canción');
     }
   };
 
   return (
     <div>
-      <h1>Edit Song</h1>
-      {successMessage && <p>{successMessage}</p>}
-      {errorMessage && <p>{errorMessage}</p>}
+      <h1 className="text-2xl font-semibold my-4 text-white">Editar Canción</h1>
+      {successMessage && <p className="text-green-500 bg-white">{successMessage}</p>}
+      {errorMessage && <p className="text-red-500 bg-white">{errorMessage}</p>}
       <EditSongForm onSubmit={handleSubmit} initialData={song} singers={singers} />
-      <Link href="/songs">Back to songs</Link>
+      <Link href="/songs">Volver a canciones</Link>
     </div>
   );
 }
